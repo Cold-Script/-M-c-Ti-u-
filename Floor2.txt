@@ -38,6 +38,12 @@ R = Right
 --Reach Prompt Clip (Toggle)
 --Reach Prompt Clip Range (Slider)
 -----------------
+--Notify(R)
+--Notify Event (Toggle)
+--Notify Oxygen (Toggle)
+--Select Volume (Dropdown
+--Play Sound (Toggle)
+-----------------
 --Mục Tiêu Groupbox Explosive
 L = Left
 R = Right
@@ -49,7 +55,7 @@ R = Right
 --Anti-Screech (Toggle)
 --Anti-Grumble (Toggle)
 --Anti-Figure Hear (Toggle)
---Anti-Dupe
+--Anti-Dupe (Toggle)
 -----------------
 --Camera(R)
 --Third Person (Keybind V)
