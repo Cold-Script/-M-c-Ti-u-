@@ -137,7 +137,8 @@ if _G.SelectInteract == "Gold" then
 for _,v in pairs(workspace:GetDescendants()) do
 if v.Name == "GoldPile" or "DrawerContainer" then
 if Distance(v:FindFirstChildWhichIsA("BasePart")) and _G.AutoInteract then
-spawn(function()								fireproximityprompt(v.ModulePrompt)
+spawn(function()
+fireproximityprompt(v)									fireproximityprompt(v.ModulePrompt)
 end)
 end							
 end
@@ -146,7 +147,8 @@ elseif _G.SelectInteract == "Fuse" then
 for _,v in pairs(workspace:GetDescendants()) do
 if v.Name == "FuseObtain" or "Small_Locker" then
 if Distance(v:FindFirstChildWhichIsA("BasePart")) and _G.AutoInteract then
-spawn(function()								fireproximityprompt(v.ModulePrompt)
+spawn(function()
+fireproximityprompt(v)									fireproximityprompt(v.ModulePrompt)
 end)
 end							
 end
@@ -155,7 +157,8 @@ elseif _G.SelectInteract == "Gates Button" then
 for _,v in pairs(workspace:GetDescendants()) do
 if v.Name == "MinesGateButton" then
 if Distance(v:FindFirstChildWhichIsA("BasePart")) and _G.AutoInteract then
-spawn(function()								fireproximityprompt(v.ModulePrompt)
+spawn(function()
+fireproximityprompt(v)									fireproximityprompt(v.ModulePrompt)
 end)
 end							
 end
@@ -164,7 +167,8 @@ elseif _G.SelectInteract == "Generator" then
 for _,v in pairs(workspace:GetDescendants()) do
 if v.Name == "MinesGenerator" then
 if Distance(v:FindFirstChildWhichIsA("BasePart")) and _G.AutoInteract then
-spawn(function()								fireproximityprompt(v.ModulePrompt)
+spawn(function()
+fireproximityprompt(v)									fireproximityprompt(v.ModulePrompt)
 end)
 end							
 end
@@ -192,8 +196,8 @@ Group3:AddSlider("MaxSlopeAngle",{
     Default = 50,
     Min = 16,
     Max = 100,
-    Rounding = 1,
-end})
+    Rounding = 1
+})
 Toggles.MaxSlopeAngle:OnChanged(function(value)
 game.Players.LocalPlayer.Character.Humanoid.MaxSlopeAngle = value
 end)
@@ -270,7 +274,7 @@ Group4:AddSlider("Slider",{
     Rounding = 1,
     Compact = true,
     Callback = function(value)
-while true do
+while wait(1) do
 for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
 if v:IsA("ProximityPrompt") then
 v.MaxActivationDistance = value
@@ -283,10 +287,17 @@ Group5:AddToggle("Toggle",{
     Text = "Notify Entity",
     Default = false
 })
-Group5:AddToggle("Toggle",{
+Group5:AddToggle("NotifyOxygen",{
     Text = "Notify Oxygen",
     Default = false
 })
+Toggles.NotifyOxygen:OnChanged(function(value)
+game.Players.LocalPlayer.Character:GetAttributeChangedSignal("Oxygen"):Connect(function()
+if game.Players.LocalPlayer.Character:GetAttribute("Oxygen") < 100 then
+firesignal(game.ReplicatedStorage:WaitForChild("RemotesFolder").Caption.OnClientEvent, string.format("Oxygen: %.1f", game.Players.LocalPlayer.Character:GetAttribute("Oxygen")))
+end 
+end)				
+end)
 Group5:AddDivider()
 Group5:AddDropdown('Dropdown',{
 	Text = "Select Volume",
@@ -346,34 +357,82 @@ Group7:AddSlider("Slider",{
     Default = 70,
     Min = 70,
     Max = 120,
-    Rounding = true,
-    Compact = 1,
-    Callback = function()
+    Rounding = 1,
+    Compact = true,
+    Callback = function(value)
+_G.FOV = value
 end})
+game:GetService("RunService").RenderStepped:Connect(function()
+workspace.CurrentCamera.FieldOfView = _G.FOV or 70
+end)
 Group7:AddToggle("Toggle",{
     Text = "No Camera Shake",
     Default = false
 })
-Group7:AddToggle("Toggle",{
-    Text = "No Cutscenes",
-    Default = false
-})
+
 Group7:AddToggle("Toggle",{
     Text = "No Light",
     Default = false
 })
-Group7:AddToggle("Toggle",{
+Group7:AddToggle("AntiLag",{
     Text = "Low Mode",
     Default = false
 })
+Toggles.AntiLag:OnChanged(function(value)
+    for _, object in pairs(workspace:GetDescendants()) do
+        if object:IsA("BasePart") then
+            if not object:GetAttribute("Material") then object:SetAttribute("Material", object.Material) end
+            if not object:GetAttribute("Reflectance") then object:SetAttribute("Reflectance", object.Reflectance) end
+
+            object.Material = value and Enum.Material.Plastic or object:GetAttribute("Material")
+            object.Reflectance = value and 0 or object:GetAttribute("Reflectance")
+        elseif object:IsA("Decal") then
+            if not object:GetAttribute("Transparency") then object:SetAttribute("Transparency", object.Transparency) end
+
+            if not table.find(SlotsName, object.Name) then
+                object.Transparency = value and 1 or object:GetAttribute("Transparency")
+            end
+        end
+    end
+
+    workspace.Terrain.WaterReflectance = value and 0 or 1
+    workspace.Terrain.WaterTransparency = value and 0 or 1
+    workspace.Terrain.WaterWaveSize = value and 0 or 0.05
+    workspace.Terrain.WaterWaveSpeed = value and 0 or 8
+    game.Lighting.GlobalShadows = not value
+end)
 Group7:AddToggle("Toggle",{
     Text = "Fullbright",
-    Default = false
-})
-Group7:AddToggle("Toggle",{
+    Default = false,
+    Callback = function(value)
+if value then
+game.Lighting.Brightness = 3
+game.Lighting.GlobalShadows = false
+game.Lighting.OutdoorAmbient = Color3.new(1,1,1)
+else
+game.Lighting.Brightness = 1
+game.Lighting.GlobalShadows = true
+game.Lighting.OutdoorAmbient = Color3.new(0,0,0)
+end
+end})
+Group7:AddToggle("NoFog",{
     Text = "No Fog",
     Default = false
 })
+Toggles.NoFog:OnChanged(function(value)
+    if not game.Lighting:GetAttribute("FogStart") then game.Lighting:SetAttribute("FogStart", game.Lighting.FogStart) end
+    if not game.Lighting:GetAttribute("FogEnd") then game.Lighting:SetAttribute("FogEnd", game.Lighting.FogEnd) end
+
+    game.Lighting.FogStart = value and 0 or Lighting:GetAttribute("FogStart")
+    game.Lighting.FogEnd = value and math.huge or game.Lighting:GetAttribute("FogEnd")
+
+    local fog = game.Lighting:FindFirstChildOfClass("Atmosphere")
+    if fog then
+        if not fog:GetAttribute("Density") then fog:SetAttribute("Density", fog.Density) end
+
+        fog.Density = value and 0 or fog:GetAttribute("Density")
+    end
+end)
 Group7:AddToggle("Toggle",{
     Text = "Show FPS",
     Default = false
