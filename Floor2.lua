@@ -50,7 +50,7 @@ end
 end
 end})
 game.Players.LocalPlayer.Character.Humanoid:GetPropertyChangedSignal("MoveDirection"):Connect(function()
-if _G.FastCloset and game.Players.LocalPlayer.Character:GetAttribute("Hiding")==true) then 
+if _G.FastCloset and game.Players.LocalPlayer.Character:GetAttribute("Hiding")==true then 
 game:GetService("ReplicatedStorage").EntityInfo.CamLock:FireServer()end end)
 Group:AddToggle("Toggle",{
     Text = "Fast Closet Exit",
@@ -81,15 +81,6 @@ game.Players.LocalPlayer.Character.RightUpperLeg.Massless = not value;
 game.Players.LocalPlayer.Character.UpperTorso.Massless = not value;			
 end})
 Group:AddDivider()
-game:GetService("RunService").RenderStepped:Connect(function()
-pcall(function()
-for _,v in next,game.Players.LocalPlayer.Character:GetDescendants() do 
-if v:IsA("BasePart") then 
-v.CanCollide = false 
-end 
-end 
-end)
-end)
 Group:AddToggle("Toggle",{
     Text = "Noclip",
     Default = false,
