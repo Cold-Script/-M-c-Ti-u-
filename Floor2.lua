@@ -1,3 +1,14 @@
+function Distance(part, extra)
+	if not extra then extra = 15 end
+	if not game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") or not part then
+		return false
+	end
+	local distanceToPart = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.Position).magnitude
+	if distanceToPart <= extra then
+		return true
+	end
+	return false
+end
 local repo = "https://raw.githubusercontent.com/mstudio45/LinoriaLib/main/"
 
 local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
@@ -118,15 +129,55 @@ Group:AddToggle("Toggle",{
 local Group2 = Tab:AddRightGroupbox("Auto")
 Group2:AddDropdown('Dropdown',{
 	Text = "Select Interact",
-        Values = {'Gold', 'Items', 'Gates Button', 'Generator' },
+        Values = {'Gold', 'Fuse', 'Gates Button', 'Generator'},
 	Default = 1,
 	Multi = true,
-	Callback = function()
+	Callback = function(value)
+_G.SelectInteract = value
+if _G.SelectInteract == "Gold" then
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "GoldPile" or "DrawerContainer" then
+if Distance(v:FindFirstChildWhichIsA("BasePart")) and _G.AutoInteract then
+spawn(function()								fireproximityprompt(v.ModulePrompt)
+end)
+end							
+end
+end					
+elseif _G.SelectInteract == "Fuse" then
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "FuseObtain" or "Small_Locker" then
+if Distance(v:FindFirstChildWhichIsA("BasePart")) and _G.AutoInteract then
+spawn(function()								fireproximityprompt(v.ModulePrompt)
+end)
+end							
+end
+end
+elseif _G.SelectInteract == "Gates Button" then
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "MinesGateButton" then
+if Distance(v:FindFirstChildWhichIsA("BasePart")) and _G.AutoInteract then
+spawn(function()								fireproximityprompt(v.ModulePrompt)
+end)
+end							
+end
+end
+elseif _G.SelectInteract == "Generator" then
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "MinesGenerator" then
+if Distance(v:FindFirstChildWhichIsA("BasePart")) and _G.AutoInteract then
+spawn(function()								fireproximityprompt(v.ModulePrompt)
+end)
+end							
+end
+end
+end	
 end})
 Group2:AddToggle("Toggle",{
     Text = "Auto Interact",
-    Default = false
-})
+    Default = false,
+    Callback = function(value)
+_G.AutoInteract = value
+end})
 Group2:AddToggle("Toggle",{
     Text = "Auto Anchor Code",
     Default = false
@@ -180,13 +231,21 @@ Group3:AddButton({
 game.ReplicatedStorage:WaitForChild("RemotesFolder").Revive:FireServer()
 end})
 local Group4 = Tab:AddLeftGroupbox("Reach")
+game:GetService("RunService").RenderStepped:Connect(function()
+pcall(function()
+if _G.OpenDoorFar then game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:WaitForChild("Door").ClientOpen:FireServer()
+end 
+end)
+end)
 Group4:AddToggle("Toggle",{
     Text = "Reach Door",
-    Default = false
-})
+    Default = false,
+    Callback = function(value)
+_G.OpenDoorFar = value
+end})
 Group4:AddToggle("Toggle",{
     Text = "Reach Clip",
-    Default = false
+    Default = false,
     Callback = function(value)
 if value then
 while true do
