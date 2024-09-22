@@ -18,9 +18,10 @@ R = Right
 --Fly Speed (Slider)
 -----------------
 --Auto(R) =
---Auto Interact (Toggle)
 --Select Interact (Dropdown)
+--Auto Interact (Toggle)
 --Auto Mines Anchor Code (Toggle)
+--Auto WaterPump 200 (Toggle
 -----------------
 --Misc(R) =
 --Reset (Button)
@@ -37,25 +38,62 @@ R = Right
 L = Left
 R = Right
 -----------------
---Anti-Entity(L)
+--Anti-Entity(L) =
+--Anti-Eyes (Toggle)
+--Anti-Halt (Toggle)
+--Anti-Snare (Toggle)
+--Anti-Screech (Toggle)
+--Anti-Grumble (Toggle)
+--Anti-Figure Hear (Toggle)
+--Anti-Dupe
 -----------------
---No-Entity(R)
+--Camera(R)
+--Third Person (Keybind V)
+--Field Of View (Slider)
+--No Shake Camera (Toggle)
+--No Cutscenes (Toggle)
+--No Light (Toggle)
+--Low Mode (Toggle)
+--Fullbright (Toggle)
+--No Fog (Toggle)
+--Show FPS (Toggle)
+--Show Pings (Toggle)
+--Hiding Transparency (Slider)
+--Enabled Hiding Transparency (Toggle)
 -----------------
---Camera(L)
------------------
---Troll
+--Troll(L) =
+--Spam Emote (Toggle) [Credits By yieviro92creepy]
+--Figure Cant Move (Toggle)
+--Anti Cheat (Toggle) [Credits By notpoiu]
 -----------------
 --Mục Tiêu Groupbox ESP
 L = Left
 R = Right
 -----------------
---ESP(L)
+--ESP(L) =
+--Door ESP (Toggle)
+--Generator ESP (Toggle)
+--Fuse ESP (Toggle)
+--WaterPump ESP (Toggle)
+--Toolbox ESP (Toggle)
+--Players ESP (Toggle)
+--Items ESP (Toggle)
+--Entity ESP (Toggle)
+--Select Entity ESP (Dropdown)
 -----------------
 --ESP Setting(R)
+--Show Distance (Toggle)
+--Show Tracer (Toggle)
+--Show Highlight (Toggle)
+--Rainbow ESP (Toggle)
+--Fill Transparency (Slider)
+--Outline Transparency (Slider)
 -----------------
 --Mục Tiêu Groupbox Configs
 L = Left
 R = Right
 -----------------
---Menu(L)
+--Menu(L) =
+--Unload (Button)
+--Show Keybind (Toggle)
 -----------------
