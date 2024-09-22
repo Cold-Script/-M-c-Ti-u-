@@ -84,10 +84,15 @@ Group:AddDivider()
 game:GetService("RunService").RenderStepped:Connect(function()
 pcall(function()
 for _,v in next,game.Players.LocalPlayer.Character:GetDescendants() do 
-if v:IsA("BasePart") then v.CanCollide=false end end end);end)
+if v:IsA("BasePart") then 
+v.CanCollide=false 
+end 
+end 
+end)
+end)
 Group:AddToggle("Toggle",{
     Text = "Noclip",
-    Default = false
+    Default = false,
     Callback = function(value)
 _G.Noclip = value
 while _G.Noclip do wait(1)
