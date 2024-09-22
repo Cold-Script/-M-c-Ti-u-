@@ -270,3 +270,83 @@ Group8:AddToggle("Toggle",{
     Text = "Bypass Anticheat",
     Default = false
 })
+local Group9 = Tab3:AddRightGroupbox("ESP")
+Group9:AddToggle("Toggle",{
+    Text = "Door ESP",
+    Default = false
+})
+Group9:AddToggle("Toggle",{
+    Text = "Fuse ESP",
+    Default = false
+})
+Group9:AddToggle("Toggle",{
+    Text = "Generator ESP",
+    Default = false
+})
+Group9:AddToggle("Toggle",{
+    Text = "Anchor ESP",
+    Default = false
+})
+Group9:AddToggle("Toggle",{
+    Text = "WaterPump ESP",
+    Default = false
+})
+Group9:AddToggle("Toggle",{
+    Text = "Toolbox ESP",
+    Default = false
+})
+Group9:AddToggle("Toggle",{
+    Text = "Items ESP",
+    Default = false
+})
+Group9:AddToggle("Toggle",{
+    Text = "Player ESP",
+    Default = false
+})
+Group9:AddDivider()
+Group9:AddDropdown('Dropdown',{
+	Text = "Select Entity ESP",
+        Values = {'Rush', 'Ambush', 'Giggle', 'Figure', 'Seek', 'Grumble'},
+	Default = {'1','2','3','4','5','6'},
+	Multi = true,
+	Callback = function()
+end})
+Group9:AddToggle("Toggle",{
+    Text = "Entity ESP",
+    Default = false
+})
+local Group10 = Tab3:AddRightGroupbox("ESP Setting")
+Group10:AddToggle("Toggle",{
+    Text = "Show Distance",
+    Default = false
+})
+Group10:AddToggle("Toggle",{
+    Text = "Show Tracer",
+    Default = false
+})
+Group10:AddToggle("Toggle",{
+    Text = "Show Highlight",
+    Default = false
+})
+Group10:AddToggle("Toggle",{
+    Text = "Rainbow ESP",
+    Default = false
+})
+Group10:AddSlider("Slider",{
+    Text = "Fill Transparency",
+    Default = 0.5,
+    Min = 0,
+    Max = 1,
+    Rounding = true,
+    Compact = 1,
+    Callback = function()
+end})
+Group10:AddSlider("Slider",{
+    Text = "Outline Transparency",
+    Default = 0,
+    Min = 0,
+    Max = 1,
+    Rounding = true,
+    Compact = 1,
+    Callback = function()
+end})
