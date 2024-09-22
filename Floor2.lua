@@ -270,7 +270,7 @@ Group8:AddToggle("Toggle",{
     Text = "Bypass Anticheat",
     Default = false
 })
-local Group9 = Tab3:AddRightGroupbox("ESP")
+local Group9 = Tab3:AddLeftGroupbox("ESP")
 Group9:AddToggle("Toggle",{
     Text = "Door ESP",
     Default = false
