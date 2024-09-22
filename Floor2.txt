@@ -29,6 +29,9 @@ R = Right
 --Auto WaterPump 200 (Toggle
 -----------------
 --Misc(R) =
+--Fast Ladder (Toggle)
+--Ladder Speed (Slider)
+--Enabled Jump (Toggle)
 --Reset (Button)
 --Play Again (Button)
 --Lobby (Button)
