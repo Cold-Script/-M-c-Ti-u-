@@ -186,24 +186,25 @@ Group2:AddToggle("Toggle",{
     Default = false
 })
 local Group3 = Tab:AddRightGroupbox("Misc")
-Group3:AddToggle("Toggle",{
-    Text = "Fast Ladder",
-    Default = false
-})
-Group3:AddSlider("Toggle",{
-    Text = "Ladder Speed",
+
+Group3:AddSlider("MaxSlopeAngle",{
+    Text = "Max Slope Angle",
     Default = 50,
     Min = 16,
     Max = 100,
-    Rounding = true,
-    Compact = 1,
-    Callback = function()
+    Rounding = 1,
 end})
+Toggles.MaxSlopeAngle:OnChanged(function(value)
+game.Players.LocalPlayer.Character.Humanoid.MaxSlopeAngle = value
+end)
 Group3:AddDivider()
-Group3:AddToggle("Toggle",{
+Group3:AddToggle("EnableJump",{
     Text = "Enabled Jump",
     Default = false
 })
+Toggles.EnableJump:OnChanged(function(value)
+game.Players.LocalPlayer.Character:SetAttribute("CanJump", value)
+end)
 Group3:AddDivider()
 Group3:AddButton({
     Text = "Play Again",
@@ -250,6 +251,7 @@ v.RequiresLineOfSight = true
 end
 end
 end)
+end)
 Group4:AddToggle("Toggle",{
     Text = "Reach Clip",
     Default = false,
@@ -265,8 +267,8 @@ Group4:AddSlider("Slider",{
     Default = 1,
     Min = 1,
     Max = 30,
-    Rounding = true,
-    Compact = 1,
+    Rounding = 1,
+    Compact = true,
     Callback = function(value)
 while true do
 for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
@@ -466,8 +468,8 @@ Group10:AddSlider("Slider",{
     Default = 0.5,
     Min = 0,
     Max = 1,
-    Rounding = true,
-    Compact = 1,
+    Rounding = 1,
+    Compact = true,
     Callback = function()
 end})
 Group10:AddSlider("Slider",{
@@ -475,7 +477,7 @@ Group10:AddSlider("Slider",{
     Default = 0,
     Min = 0,
     Max = 1,
-    Rounding = true,
-    Compact = 1,
+    Rounding = 1,
+    Compact = true,
     Callback = function()
 end})
