@@ -2,6 +2,7 @@
 Code : Code.lua (100% LUA)
 Credits : yieviro92creepy(Spam Emote), notpiou(Anti Cheat), rechedmcvn(Script Creator)
 Game : [FLOOR 2] DOORS ROBLOX
+Library : Linoria
 ]]
 --Mục tiêu Tab
 Tab 1 = Main
