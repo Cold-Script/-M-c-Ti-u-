@@ -110,7 +110,6 @@ if _G.Noclip == false then
 v:IsA("BasePart")
 v.CanCollide = true
 end 
-break 
 end})
 Group:AddDivider()
 Group:AddSlider("Slider",{
@@ -243,25 +242,23 @@ Group4:AddToggle("Toggle",{
     Callback = function(value)
 _G.OpenDoorFar = value
 end})
+game:GetService("RunService").RenderStepped:Connect(function()
+pcall(function()
+for _,v in pairs(workspace:GetDescendants()) do 
+if v:IsA("ProximityPrompt", v) and _G.PromptClip then 
+v.RequiresLineOfSight = true
+end
+end
+end)
 Group4:AddToggle("Toggle",{
     Text = "Reach Clip",
     Default = false,
     Callback = function(value)
-if value then
-while true do
-for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
-if v:IsA("ProximityPrompt") then
-v.RequiresLineOfSight = true
-end
-end
-else
-for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
-if v:IsA("ProximityPrompt") then
+_G.PromptClip = value
+if _G.PromptClip == false then				
+v:IsA("ProximityPrompt")
 v.RequiresLineOfSight = false
-end
-end
-end
-end
+end 
 end})
 Group4:AddSlider("Slider",{
     Text = "Reach Range",
