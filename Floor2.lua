@@ -139,3 +139,24 @@ Group4:AddSlider("Toggle",{
     Compact = 1,
     Callback = function()
 end})
+local Group5 = Tab:AddRightGroupbox("Notify")
+Group5:AddToggle("Toggle",{
+    Text = "Notify Entity",
+    Default = false
+})
+Group5:AddToggle("Toggle",{
+    Text = "Notify Oxygen",
+    Default = false
+})
+Group5:AddDivider()
+Group5:AddDropdown('Dropdown',{
+	Text = "Select Volume",
+        Values = {'1', '2', '3', '4'},
+	Default = 1,
+	Multi = false,
+	Callback = function()
+end})
+Group5:AddToggle("Toggle",{
+    Text = "Play Sound",
+    Default = true
+})
