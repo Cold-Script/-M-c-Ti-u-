@@ -40,7 +40,7 @@ Group:AddToggle("Toggle",{
     Default = false,
     Callback = function(value)
 _G.Instance = value
-while _G.Intantce do wait(1)
+while _G.Instance do wait(1)
 for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
 if v:IsA("ProximityPrompt") then
 v.HoldDuration = 0
