@@ -27,8 +27,8 @@ Group:AddSlider("Slider",{
     Default = 16,
     Min = 16,
     Max = 25,
-    Rounding = true,
-    Compact = 1,
+    Rounding = 1,
+    Compact = true,
     Callback = function(value)
 _G.WalkSpeed = value
 end})
@@ -38,13 +38,13 @@ end)
 Group:AddToggle("Toggle",{
     Text = "Instance Interact",
     Default = false,
-    Callback = function(value)
+    Callback = function(value, value2)
 _G.Instance = value
 while _G.Instance do wait(1)
 for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
 if v:IsA("ProximityPrompt") then
 v.HoldDuration = 0
-v.Enabled = value
+v.Enabled = value2
 end
 end
 end
@@ -81,23 +81,25 @@ game.Players.LocalPlayer.Character.RightUpperLeg.Massless = not value;
 game.Players.LocalPlayer.Character.UpperTorso.Massless = not value;			
 end})
 Group:AddDivider()
+game:GetService("RunService").RenderStepped:Connect(function()
+pcall(function()
+for _,v in next,game.Players.LocalPlayer.Character:GetDescendants() do 
+if v:IsA("BasePart", v) and _G.Noclip then 
+v.CanCollide = false
+end
+end
+end)
+end)
 Group:AddToggle("Toggle",{
-    Text = "Noclip",
-    Default = false,
-    Callback = function(value)
-if value then
-for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
-if v:IsA("BasePart") then
-v.CanCollide = false;
-end
-end
-else
-for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
-if v:IsA("BasePart") then
-v.CanCollide = true;
-end
-end
-end
+	Text = "Noclip",
+	Default = false,
+	Callback = function(value)
+_G.Noclip = value
+if _G.Noclip == false then				
+v:IsA("BasePart")
+v.CanCollide = true
+end 
+break 
 end})
 Group:AddDivider()
 Group:AddSlider("Slider",{
@@ -105,8 +107,8 @@ Group:AddSlider("Slider",{
     Default = 16,
     Min = 16,
     Max = 25,
-    Rounding = true,
-    Compact = 1,
+    Rounding = 1,
+    Compact = true,
     Callback = function()
 end})
 Group:AddToggle("Toggle",{
@@ -116,7 +118,7 @@ Group:AddToggle("Toggle",{
 local Group2 = Tab:AddRightGroupbox("Auto")
 Group2:AddDropdown('Dropdown',{
 	Text = "Select Interact",
-  Values = {'Gold', 'Items', 'Gates Button', 'Generator' },
+        Values = {'Gold', 'Items', 'Gates Button', 'Generator' },
 	Default = 1,
 	Multi = true,
 	Callback = function()
@@ -157,21 +159,25 @@ Group3:AddButton({
     Text = "Play Again",
     DoubleClick = true,
     Func = function()
+game.ReplicatedStorage:WaitForChild("RemotesFolder").PlayAgain:FireServer()
 end})
 Group3:AddButton({
     Text = "Lobby",
     DoubleClick = true,
     Func = function()
+game.ReplicatedStorage:WaitForChild("RemotesFolder").Lobby:FireServer()
 end})
 Group3:AddButton({
     Text = "Reset",
     DoubleClick = true,
     Func = function()
+game.Players.LocalPlayer.Character.Humanoid.Health = 0
 end})
 Group3:AddButton({
     Text = "Revive",
     DoubleClick = true,
     Func = function()
+game.ReplicatedStorage:WaitForChild("RemotesFolder").Revive:FireServer()
 end})
 local Group4 = Tab:AddLeftGroupbox("Reach")
 Group4:AddToggle("Toggle",{
