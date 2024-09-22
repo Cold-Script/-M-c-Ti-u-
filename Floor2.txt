@@ -55,11 +55,12 @@ R = Right
 --Anti-Entity(L) =
 --Anti-Eyes (Toggle)
 --Anti-Halt (Toggle)
---Anti-Snare (Toggle)
 --Anti-Screech (Toggle)
 --Anti-Grumble (Toggle)
 --Anti-Figure Hear (Toggle)
 --Anti-Dupe (Toggle)
+--Anti-Seek Chase (Toggle)
+--Anti-Seek Bridge Animation (Toggle)
 -----------------
 --Camera(R)
 --Third Person (Keybind V)
