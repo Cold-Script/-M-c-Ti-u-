@@ -1,4 +1,8 @@
---[[Áp Dụng Floor 2]]
+--[[
+Code : Code.lua (100% LUA)
+Credits : yieviro92creepy(Spam Emote), notpiou(Anti Cheat), rechedmcvn(Script Creator)
+Game : [FLOOR 2] DOORS ROBLOX
+]]
 --Mục tiêu Tab
 Tab 1 = Main
 Tab 2 = Explosive
