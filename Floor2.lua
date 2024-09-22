@@ -85,14 +85,19 @@ Group:AddToggle("Toggle",{
     Text = "Noclip",
     Default = false,
     Callback = function(value)
-_G.Noclip = value
-while _G.Noclip do wait(1)
+if value then
 for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
 if v:IsA("BasePart") then
-v.CanCollide = not value;
+v.CanCollide = false;
 end
 end
-end 
+else
+for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
+if v:IsA("BasePart") then
+v.CanCollide = true;
+end
+end
+end
 end})
 Group:AddDivider()
 Group:AddSlider("Slider",{
