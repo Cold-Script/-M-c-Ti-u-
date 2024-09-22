@@ -185,17 +185,40 @@ Group4:AddToggle("Toggle",{
     Default = false
 })
 Group4:AddToggle("Toggle",{
-    Text = "Reach Prompt Clip",
+    Text = "Reach Clip",
     Default = false
-})
+    Callback = function(value)
+if value then
+while true do
+for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
+if v:IsA("ProximityPrompt") then
+v.RequiresLineOfSight = true
+end
+end
+else
+for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
+if v:IsA("ProximityPrompt") then
+v.RequiresLineOfSight = false
+end
+end
+end
+end
+end})
 Group4:AddSlider("Slider",{
     Text = "Reach Range",
-    Default = 5,
+    Default = 1,
     Min = 1,
     Max = 30,
     Rounding = true,
     Compact = 1,
-    Callback = function()
+    Callback = function(value)
+while true do
+for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
+if v:IsA("ProximityPrompt") then
+v.MaxActivationDistance = value
+end
+end
+end
 end})
 local Group5 = Tab:AddLeftGroupbox("Notify")
 Group5:AddToggle("Toggle",{
@@ -379,15 +402,7 @@ Group10:AddToggle("Toggle",{
     Default = false
 })
 Group10:AddToggle("Toggle",{
-    Text = "Show Tracer",
-    Default = false
-})
-Group10:AddToggle("Toggle",{
     Text = "Show Highlight",
-    Default = false
-})
-Group10:AddToggle("Toggle",{
-    Text = "Rainbow ESP",
     Default = false
 })
 Group10:AddSlider("Slider",{
