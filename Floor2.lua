@@ -21,7 +21,7 @@ local Tab3 = Window:AddTab("ESP")
 local Tab4 = Window:AddTab("Configs")
 
 local Group = Tab:AddLeftGroupbox("Players")
-Group:AddSlider("Toggle",{
+Group:AddSlider("Slider",{
     Text = "WalkSpeed",
     Default = 16,
     Min = 16,
@@ -48,7 +48,7 @@ Group:AddToggle("Toggle",{
     Default = false
 })
 Group:AddDivider()
-Group:AddSlider("Toggle",{
+Group:AddSlider("Slider",{
     Text = "Fly Speed",
     Default = 16,
     Min = 16,
@@ -130,7 +130,7 @@ Group4:AddToggle("Toggle",{
     Text = "Reach Prompt Clip",
     Default = false
 })
-Group4:AddSlider("Toggle",{
+Group4:AddSlider("Slider",{
     Text = "Reach Range",
     Default = 5,
     Min = 1,
@@ -139,7 +139,7 @@ Group4:AddSlider("Toggle",{
     Compact = 1,
     Callback = function()
 end})
-local Group5 = Tab:AddRightGroupbox("Notify")
+local Group5 = Tab:AddLeftGroupbox("Notify")
 Group5:AddToggle("Toggle",{
     Text = "Notify Entity",
     Default = false
@@ -159,4 +159,114 @@ end})
 Group5:AddToggle("Toggle",{
     Text = "Play Sound",
     Default = true
+})
+local Group6 = Tab2:AddLeftGroupbox("Anti-Entity")
+Group6:AddToggle("Toggle",{
+    Text = "Anti-Eyes",
+    Default = false
+})
+Group6:AddToggle("Toggle",{
+    Text = "Anti-Dupe",
+    Default = false
+})
+Group6:AddToggle("Toggle",{
+    Text = "Anti-Halt",
+    Default = false
+})
+Group6:AddToggle("Toggle",{
+    Text = "Anti-Screech",
+    Default = false
+})
+Group6:AddToggle("Toggle",{
+    Text = "Anti-Grumble",
+    Default = false
+})
+Group6:AddToggle("Toggle",{
+    Text = "Anti-Giggle",
+    Default = false
+})
+Group6:AddToggle("Toggle",{
+    Text = "Anti-Seek Chase",
+    Default = false
+})
+Group6:AddToggle("Toggle",{
+    Text = "Anti-Seek Brigde Animation",
+    Default = false
+})
+Group6:AddToggle("Toggle",{
+    Text = "Anti-Figure Hear",
+    Default = false
+})
+local Group7 = Tab2:AddRightGroupbox("Camera")
+Group7:AddToggle("Toggle",{
+    Text = "Third Person",
+    Default = false
+})
+Group7:AddSlider("Slider",{
+    Text = "Field Of View",
+    Default = 70,
+    Min = 70,
+    Max = 120,
+    Rounding = true,
+    Compact = 1,
+    Callback = function()
+end})
+Group7:AddToggle("Toggle",{
+    Text = "No Camera Shake",
+    Default = false
+})
+Group7:AddToggle("Toggle",{
+    Text = "No Cutscenes",
+    Default = false
+})
+Group7:AddToggle("Toggle",{
+    Text = "No Light",
+    Default = false
+})
+Group7:AddToggle("Toggle",{
+    Text = "Low Mode",
+    Default = false
+})
+Group7:AddToggle("Toggle",{
+    Text = "Fullbright",
+    Default = false
+})
+Group7:AddToggle("Toggle",{
+    Text = "No Fog",
+    Default = false
+})
+Group7:AddToggle("Toggle",{
+    Text = "Show FPS",
+    Default = false
+})
+Group7:AddToggle("Toggle",{
+    Text = "Show PING",
+    Default = false
+})
+Group7:AddDivider()
+Group7:AddSlider("Slider",{
+    Text = "Transparency",
+    Default = 0.5,
+    Min = 0,
+    Max = 1,
+    Rounding = true,
+    Compact = 1,
+    Callback = function()
+end})
+Group7:AddToggle("Toggle",{
+    Text = "Hiding Transparency",
+    Default = false
+})
+local Group8 = Tab2:AddRightGroupbox("Troll")
+Group8:AddToggle("Toggle",{
+    Text = "Spam Emote",
+    Default = false
+})
+Group8:AddToggle("Toggle",{
+    Text = "Figure Cant Move",
+    Default = false
+})
+Group8:AddToggle("Toggle",{
+    Text = "Bypass Anticheat",
+    Default = false
 })
