@@ -81,7 +81,7 @@ Group2:AddToggle("Toggle",{
     Text = "Auto WaterPump",
     Default = false
 })
-local Group3 = Tab:AddLeftGroupbox("Misc")
+local Group3 = Tab:AddRightGroupbox("Misc")
 Group3:AddToggle("Toggle",{
     Text = "Fast Ladder",
     Default = false
@@ -103,20 +103,24 @@ Group3:AddToggle("Toggle",{
 Group3:AddDivider()
 Group3:AddButton({
     Text = "Play Again",
-    DoubleClick = true
-})
-Group3:AddButton({
-    Text = "Revive",
-    DoubleClick = true
-})
-Group3:AddButton({
-    Text = "Reset Character",
-    DoubleClick = true
-})
+    DoubleClick = true,
+    Func = function()
+end})
 Group3:AddButton({
     Text = "Lobby",
-    DoubleClick = true
-})
+    DoubleClick = true,
+    Func = function()
+end})
+Group3:AddButton({
+    Text = "Reset",
+    DoubleClick = true,
+    Func = function()
+end})
+Group3:AddButton({
+    Text = "Revive",
+    DoubleClick = true,
+    Func = function()
+end})
 local Group4 = Tab:AddLeftGroupbox("Reach")
 Group4:AddToggle("Toggle",{
     Text = "Reach Door",
