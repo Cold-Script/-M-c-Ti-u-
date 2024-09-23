@@ -43,9 +43,6 @@ Group:AddSlider("Slider",{
     Callback = function(value)
 _G.WalkSpeed = value
 end})
-game:GetService("RunService").RenderStepped:Connect(function()
-game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = _G.WalkSpeed
-end)
 Group:AddToggle("Toggle",{
     Text = "Instance Interact",
     Default = false,
@@ -196,11 +193,12 @@ Group3:AddSlider("MaxSlopeAngle",{
     Default = 50,
     Min = 16,
     Max = 100,
-    Rounding = 1
-})
-Toggles.MaxSlopeAngle:OnChanged(function(value)
-game.Players.LocalPlayer.Character.Humanoid.MaxSlopeAngle = value
-end)
+    Rounding = 1,
+    Compact = true,
+    Callback = function(value)
+_G.MaxAngle = value
+end})
+
 Group3:AddDivider()
 Group3:AddToggle("EnableJump",{
     Text = "Enabled Jump",
@@ -362,9 +360,6 @@ Group7:AddSlider("Slider",{
     Callback = function(value)
 _G.FOV = value
 end})
-game:GetService("RunService").RenderStepped:Connect(function()
-workspace.CurrentCamera.FieldOfView = _G.FOV or 70
-end)
 Group7:AddToggle("Toggle",{
     Text = "No Camera Shake",
     Default = false
@@ -376,10 +371,9 @@ Group7:AddToggle("Toggle",{
 })
 Group7:AddToggle("AntiLag",{
     Text = "Low Mode",
-    Default = false
-})
-Toggles.AntiLag:OnChanged(function(value)
-    for _, object in pairs(workspace:GetDescendants()) do
+    Default = false,
+    Callback = function(value)
+for _, object in pairs(workspace:GetDescendants()) do
         if object:IsA("BasePart") then
             if not object:GetAttribute("Material") then object:SetAttribute("Material", object.Material) end
             if not object:GetAttribute("Reflectance") then object:SetAttribute("Reflectance", object.Reflectance) end
@@ -388,10 +382,6 @@ Toggles.AntiLag:OnChanged(function(value)
             object.Reflectance = value and 0 or object:GetAttribute("Reflectance")
         elseif object:IsA("Decal") then
             if not object:GetAttribute("Transparency") then object:SetAttribute("Transparency", object.Transparency) end
-
-            if not table.find(SlotsName, object.Name) then
-                object.Transparency = value and 1 or object:GetAttribute("Transparency")
-            end
         end
     end
 
@@ -399,8 +389,8 @@ Toggles.AntiLag:OnChanged(function(value)
     workspace.Terrain.WaterTransparency = value and 0 or 1
     workspace.Terrain.WaterWaveSize = value and 0 or 0.05
     workspace.Terrain.WaterWaveSpeed = value and 0 or 8
-    game.Lighting.GlobalShadows = not value
-end)
+    game.Lighting.GlobalShadows = not value			
+end})
 Group7:AddToggle("Toggle",{
     Text = "Fullbright",
     Default = false,
@@ -417,10 +407,9 @@ end
 end})
 Group7:AddToggle("NoFog",{
     Text = "No Fog",
-    Default = false
-})
-Toggles.NoFog:OnChanged(function(value)
-    if not game.Lighting:GetAttribute("FogStart") then game.Lighting:SetAttribute("FogStart", game.Lighting.FogStart) end
+    Default = false,
+    Callback = function(value)
+if not game.Lighting:GetAttribute("FogStart") then game.Lighting:SetAttribute("FogStart", game.Lighting.FogStart) end
     if not game.Lighting:GetAttribute("FogEnd") then game.Lighting:SetAttribute("FogEnd", game.Lighting.FogEnd) end
 
     game.Lighting.FogStart = value and 0 or Lighting:GetAttribute("FogStart")
@@ -431,7 +420,10 @@ Toggles.NoFog:OnChanged(function(value)
         if not fog:GetAttribute("Density") then fog:SetAttribute("Density", fog.Density) end
 
         fog.Density = value and 0 or fog:GetAttribute("Density")
-    end
+	end
+end})
+Toggles.NoFog:OnChanged(function(value)
+    
 end)
 Group7:AddToggle("Toggle",{
     Text = "Show FPS",
@@ -540,3 +532,8 @@ Group10:AddSlider("Slider",{
     Compact = true,
     Callback = function()
 end})
+game:GetService("RunService").RenderStepped:Connect(function()
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = _G.WalkSpeed
+game.Players.LocalPlayer.Character.Humanoid.MaxSlopeAngle = _G.MaxAngle
+workspace.CurrentCamera.FieldOfView = _G.FOV or 70
+end)
