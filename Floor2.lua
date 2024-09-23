@@ -46,13 +46,13 @@ end})
 Group:AddToggle("Toggle",{
     Text = "Instance Interact",
     Default = false,
-    Callback = function(value, value2)
+    Callback = function(value)
 _G.Instance = value
 while _G.Instance do wait(1)
 for _,v in pairs(workspace.CurrentRooms:GetDescendants()) do
 if v:IsA("ProximityPrompt") then
 v.HoldDuration = 0
-v.Enabled = value2
+v.Enabled = true
 end
 end
 end
