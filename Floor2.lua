@@ -11,7 +11,7 @@ Billboard.Parent = child;
 Billboard.Name = title;
 local Title = Instance.new("TextLabel");
 Title.TextSize = 15;
-Title.Font = "RobotoCondensed";
+Title.Font = "Oswald";
 Title.TextColor3 = color;
 Title.BackgroundColor3 = Color3.new(1, 1, 1);
 Title.BackgroundTransparency = 1;
@@ -690,8 +690,9 @@ Group9:AddToggle("Toggle",{
 })
 Group9:AddDivider()
 
-Group.Right3:AddToggle('',{
+Group9:AddToggle('',{
     Text = "Entity ESP", 
+    Default = false,
     Callback = function(value)
 if value then
 for _,v in pairs(workspace:GetDescendants()) do
