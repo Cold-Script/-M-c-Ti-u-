@@ -1,3 +1,86 @@
+local function Billboard(child, name, color, title)
+local Billboard = Instance.new("BillboardGui");do
+Billboard.Active = true;
+Billboard.AlwaysOnTop = true;
+Billboard.ClipsDescendants = true;
+Billboard.LightInfluence = 1;
+Billboard.Size = UDim2.new(10000, 0, 10000, 0);
+Billboard.ResetOnSpawn = false;
+Billboard.ZIndexBehavior = Enum.ZIndexBehavior.Sibling;
+Billboard.Parent = child;
+Billboard.Name = title;
+local Title = Instance.new("TextLabel");
+Title.TextSize = 15;
+Title.Font = "RobotoCondensed";
+Title.TextColor3 = color;
+Title.BackgroundColor3 = Color3.new(1, 1, 1);
+Title.BackgroundTransparency = 1;
+Title.BorderColor3 = Color3.new(0, 0, 0);
+Title.BorderSizePixel = 0;
+Title.Size = UDim2.new(1, 0, 1, 0);
+Title.Visible = true;
+Title.Parent = Billboard;
+local uistroke = Instance.new("UIStroke");
+uistroke.Thickness = 1;
+uistroke.Parent = Title;
+task.spawn(function()
+game:GetService("RunService").RenderStepped:Connect(function()
+Title.Text = string.format("%s\n[%sm]", name or child.Name, math.floor((workspace.CurrentCamera.CFrame.Position - child:GetPivot().Position).Magnitude));
+end);
+end);
+end
+end
+local function CylinderESP(child, name, color, title)
+Billboard(child, name, color, title)
+local Adornment = Instance.new("CylinderHandleAdornment")
+Adornment.Height = child.Size.Y * 2
+Adornment.Radius = child.Size.X * 0.75
+Adornment.CFrame = CFrame.new(0,0,0) * CFrame.Angles(math.rad(90), 0, 0)
+Adornment.Color3 = color
+Adornment.Transparency = 0.6
+Adornment.AlwaysOnTop = true
+Adornment.ZIndex = 10
+Adornment.Adornee = child
+Adornment.Name = title
+Adornment.Parent = child
+end
+local function BoxESP(child, name, color, title)
+Billboard(child, name, color, title)
+local Adornment = Instance.new("BoxHandleAdornment")
+Adornment.Size = child.Size
+Adornment.Color3 = color
+Adornment.Transparency = 0.6
+Adornment.AlwaysOnTop = true
+Adornment.ZIndex = 10
+Adornment.Adornee = child
+Adornment.Name = title
+Adornment.Parent = child
+end
+local function SphereESP(child, name, color, title)
+Billboard(child, name, color, title)
+local Adornment = Instance.new("SphereHandleAdornment", child)
+Adornment.Radius = child.Size.X * 1.085
+Adornment.CFrame = CFrame.new() * CFrame.Angles(math.rad(90), 0, 0)
+Adornment.Color3 = color
+Adornment.Transparency = 0.6
+Adornment.AlwaysOnTop = true
+Adornment.ZIndex = 10
+Adornment.Adornee = child
+Adornment.Name = title
+Adornment.Parent = child
+end
+local function Highlight(child, name, color, title)
+Billboard(child, name, color, title)
+local Highlight = Instance.new("Highlight")
+Highlight.FillColor = color
+Highlight.OutlineColor = color
+Highlight.FillTransparency = 0.75
+Highlight.OutlineTransparency = 0
+Highlight.Name = title
+Highlight.Adornee = child
+Highlight.Parent = child
+end
+
 function Distance(part, extra)
 	if not extra then extra = 15 end
 	if not game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") or not part then
@@ -212,13 +295,13 @@ Group3:AddButton({
     Text = "Play Again",
     DoubleClick = true,
     Func = function()
-game.ReplicatedStorage:WaitForChild("RemotesFolder").PlayAgain:FireServer()
+game.ReplicatedStorage.RemotesFolder.PlayAgain:FireServer()
 end})
 Group3:AddButton({
     Text = "Lobby",
     DoubleClick = true,
     Func = function()
-game.ReplicatedStorage:WaitForChild("RemotesFolder").Lobby:FireServer()
+game.ReplicatedStorage.RemotesFolder.Lobby:FireServer()
 end})
 Group3:AddButton({
     Text = "Reset",
@@ -230,7 +313,7 @@ Group3:AddButton({
     Text = "Revive",
     DoubleClick = true,
     Func = function()
-game.ReplicatedStorage:WaitForChild("RemotesFolder").Revive:FireServer()
+game.ReplicatedStorage.RemotesFolder.Revive:FireServer()
 end})
 local Group4 = Tab:AddLeftGroupbox("Reach")
 game:GetService("RunService").RenderStepped:Connect(function()
@@ -283,7 +366,7 @@ end})
 local Group5 = Tab:AddLeftGroupbox("Notify")
 Group5:AddToggle("Toggle",{
     Text = "Notify Entity",
-    Default = false
+    Default = false,
 })
 Group5:AddToggle("NotifyOxygen",{
     Text = "Notify Oxygen",
@@ -463,53 +546,206 @@ Group8:AddToggle("Toggle",{
 local Group9 = Tab3:AddLeftGroupbox("ESP")
 Group9:AddToggle("Toggle",{
     Text = "Door ESP",
-    Default = false
-})
+    Default = false,
+    Callback = function(value)
+if value then               
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "Door" and v.Parent.Name == "Door" then
+Highlight(v, "Door", Color3.fromRGB(80,255,200), "DoorESP")
+end		
+end					
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "Door" and v.Parent.Name == "Door" then
+Highlight(v, "Door", Color3.fromRGB(80,255,200), "DoorESP")
+end
+end                
+ESP1 = workspace.CurrentRooms.ChildAdded:Connect(function(child)                       
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "Door" and v.Parent.Name == "Door" then
+Highlight(v, "Door", Color3.fromRGB(80,255,200), "DoorESP")
+end
+end
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "Door" and v.Parent.Name == "Door" then
+Highlight(v, "Door", Color3.fromRGB(80,255,200), "DoorESP")
+end
+end                        
+end)
+else
+ESP1:Disconnect()
+for _, v in pairs(workspace:GetDescendants()) do
+if v.Name == "DoorESP" then
+v:Destroy()
+end
+end
+end			
+end})
 Group9:AddToggle("Toggle",{
     Text = "Fuse ESP",
-    Default = false
-})
+    Default = false,
+    Callback = function(value)
+if value then               
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "FuseObtain" then
+Highlight(v, "Fuse", Color3.fromRGB(80,255,200), "FuseESP")
+end		
+end					                
+ESP2 = workspace.CurrentRooms.ChildAdded:Connect(function(child)                       
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "FuseObtain" then
+Highlight(v, "Fuse", Color3.fromRGB(80,255,200), "FuseESP")
+end
+end                        
+end)
+else
+ESP2:Disconnect()
+for _, v in pairs(workspace:GetDescendants()) do
+if v.Name == "FuseESP" then
+v:Destroy()
+end
+end
+end			
+end})
 Group9:AddToggle("Toggle",{
     Text = "Generator ESP",
-    Default = false
-})
+    Default = false,
+    Callback = function(value)
+if value then               
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "MinesGenerator" then
+Highlight(v, "Generator", Color3.fromRGB(80,255,200), "MGESP")
+end		
+end					                
+ESP3 = workspace.CurrentRooms.ChildAdded:Connect(function(child)                       
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "MinesGenerator" then
+Highlight(v, "Generator", Color3.fromRGB(80,255,200), "MGESP")
+end
+end                        
+end)
+else
+ESP3:Disconnect()
+for _, v in pairs(workspace:GetDescendants()) do
+if v.Name == "MGESP" then
+v:Destroy()
+end
+end
+end			
+end})
 Group9:AddToggle("Toggle",{
-    Text = "Anchor ESP",
-    Default = false
-})
+    Text = "Fuse ESP",
+    Default = false,
+    Callback = function(value)
+if value then               
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "MinesAnchor" then
+Highlight(v, "Anchor", Color3.fromRGB(80,255,200), "MAESP")
+end		
+end					                
+ESP4 = workspace.CurrentRooms.ChildAdded:Connect(function(child)                       
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "MinesAnchor" then
+Highlight(v, "Anchor", Color3.fromRGB(80,255,200), "MAESP")
+end
+end                        
+end)
+else
+ESP4:Disconnect()
+for _, v in pairs(workspace:GetDescendants()) do
+if v.Name == "MAESP" then
+v:Destroy()
+end
+end
+end			
+end})
 Group9:AddToggle("Toggle",{
-    Text = "WaterPump ESP",
-    Default = false
-})
-Group9:AddToggle("Toggle",{
-    Text = "Toolbox ESP",
-    Default = false
-})
-Group9:AddToggle("Toggle",{
-    Text = "Items ESP",
-    Default = false
-})
+    Text = "Pump ESP",
+    Default = false,
+    Callback = function(value)
+if value then               
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "WaterPump" then
+Highlight(v, "Pump", Color3.fromRGB(80,255,200), "WPESP")
+end		
+end					                
+ESP5 = workspace.CurrentRooms.ChildAdded:Connect(function(child)                       
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "WaterPump" then
+Highlight(v, "Pump", Color3.fromRGB(80,255,200), "WPESP")
+end
+end                        
+end)
+else
+ESP5:Disconnect()
+for _, v in pairs(workspace:GetDescendants()) do
+if v.Name == "WPESP" then
+v:Destroy()
+end
+end
+end			
+end})
 Group9:AddToggle("Toggle",{
     Text = "Player ESP",
     Default = false
 })
 Group9:AddDivider()
-Group9:AddDropdown('Dropdown',{
-	Text = "Select Entity ESP",
-        Values = {'Rush', 'Ambush', 'Giggle', 'Figure', 'Seek', 'Grumble'},
-	Default = {'1','2','3','4','5','6'},
-	Multi = true,
-	Callback = function()
+
+Group.Right3:AddToggle('',{
+    Text = "Entity ESP", 
+    Callback = function(value)
+if value then
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "RushNew" and v.Parent.Name == "RushMoving" then
+CylinderESP(v, "Rush", v.Color, "RushESP")
+elseif v.Name == "RushNew" and v.Parent.Name == "AmbushMoving" then
+CylinderESP(v, "Ambush", v.Color, "AmbushESP")
+elseif v.Name == "Hitbox" and v.Parent.Name == "FigureRig" then
+CylinderESP(v, "Figure", Color3.fromRGB(255, 60, 60), "FigureESP")
+elseif v.Name == "Handle" and v.Parent.Name == "GiggleCeiling" then
+CylinderESP(v, "Giggle", Color3.fromRGB(255,0,0), "TrapGiggleESP")
+elseif v.Name == "SeekMovingNewClone" then
+Highlight(v, "Seek", Color3.fromRGB(30,30,30), "SeekESP")
+elseif v.Name == "Core" and v.Parent.Name == "Eyes" then
+SphereESP(v, "Eyes", v.Color, "EyesESP")						
+end
+end
+ESP8 = workspace.CurrentRooms.ChildAdded:Connect(function(child)
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "RushNew" and v.Parent.Name == "RushMoving" then
+CylinderESP(v, "Rush", v.Color, "RushESP")
+elseif v.Name == "RushNew" and v.Parent.Name == "AmbushMoving" then
+CylinderESP(v, "Ambush", v.Color, "AmbushESP")
+elseif v.Name == "Hitbox" and v.Parent.Name == "FigureRig" then
+CylinderESP(v, "Figure", Color3.fromRGB(255, 60, 60), "FigureESP")
+elseif v.Name == "Handle" and v.Parent.Name == "GiggleCeiling" then
+CylinderESP(v, "Giggle", Color3.fromRGB(255,0,0), "TrapGiggleESP")
+elseif v.Name == "SeekMovingNewClone" then
+Highlight(v, "Seek", Color3.fromRGB(30,30,30), "SeekESP")
+elseif v.Name == "Core" and v.Parent.Name == "Eyes" then
+SphereESP(v, "Eyes", v.Color, "EyesESP")						
+end
+end
+end)
+else
+ESP8:Disconnect()
+for _, v in pairs(workspace:GetDescendants()) do
+if v.Name == "RushESP" then
+v:Destroy()
+elseif v.Name == "AmbushESP" then
+v:Destroy()
+elseif v.Name == "FigureESP" then
+v:Destroy()
+elseif v.Name == "TrapGiggleESP" then
+v:Destroy()
+elseif v.Name == "SeekESP" then
+v:Destroy()
+elseif v.Name == "EyesESP" then
+v:Destroy()	
+end
+end
+end 
 end})
-Group9:AddToggle("Toggle",{
-    Text = "Entity ESP",
-    Default = false
-})
 local Group10 = Tab3:AddRightGroupbox("ESP Setting")
-Group10:AddToggle("Toggle",{
-    Text = "Show Distance",
-    Default = false
-})
 Group10:AddToggle("Toggle",{
     Text = "Show Highlight",
     Default = false
